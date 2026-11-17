@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Muhammad Rafly — Architecture Portfolio</title>
+  <meta name="description" content="Portfolio of Muhammad Rafly, architecture student at Universitas Islam Indonesia. Public Toilet, The Living Unit, After Hours Jazz Center and Step by Step Vertical Housing, rebuilt as interactive 3D maquettes." />
+  <meta name="theme-color" content="#eeeae2" />
+  <meta property="og:title" content="Muhammad Rafly — Architecture Portfolio" />
+  <meta property="og:description" content="Academic architecture works rebuilt as interactive 3D maquettes." />
+  <meta property="og:image" content="img/jazz-hero.webp" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231c1916'/%3E%3Ctext x='50%25' y='58%25' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-size='38' fill='%23eeeae2'%3Er%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=Manrope:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/style.css" />
+  <script>if ('scrollRestoration' in history) history.scrollRestoration = 'manual';</script>
+</head>
+<body>
+  <!-- loader -->
+  <div class="loader" aria-hidden="true">
+    <div class="loader__inner">
+      <span class="loader__word">por<i>tf</i>oli<span>O</span></span>
+      <span class="loader__count"><span class="js-count">0</span>%</span>
+    </div>
+    <div class="loader__bar"><span></span></div>
+  </div>
+
+  <canvas class="webgl" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="cursor" aria-hidden="true"><span class="cursor__label"></span></div>
+
+  <header class="nav">
+    <a href="#top" class="nav__logo" data-magnetic>M. Rafly<span>®</span></a>
+    <nav class="nav__links" aria-label="Main">
+      <a href="#works" data-link>Works</a>
+      <a href="#about" data-link>About</a>
+      <a href="#gallery" data-link>Gallery</a>
+      <a href="#contact" data-link>Contact</a>
+    </nav>
+    <a href="mailto:raflytil90@gmail.com" class="nav__cta" data-magnetic>Let's talk</a>
+    <button class="nav__burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+  </header>
+
+  <div class="menu" aria-hidden="true">
+    <nav>
+      <a href="#works" data-link><small>01</small>Works</a>
+      <a href="#about" data-link><small>02</small>About</a>
+      <a href="#gallery" data-link><small>03</small>Gallery</a>
+      <a href="#contact" data-link><small>04</small>Contact</a>
+    </nav>
+    <p class="menu__foot">raflytil90@gmail.com<br />Cilegon — Yogyakarta, ID</p>
+  </div>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero" id="hero">
+      <div class="hero__meta">
+        <span class="mono">Portofolio Perancangan</span>
+        <span class="mono">2023 — 2026</span>
+      </div>
+      <h1 class="hero__title" aria-label="Portfolio">
+        <span class="hero__line"><span>por<i>tf</i>oli<b>O</b></span></span>
+      </h1>
+      <div class="hero__intro">
+        <p class="hero__by mono">By: Muhammad Rafly</p>
+        <p class="hero__lead" data-split>Architecture student at Universitas Islam Indonesia, designing with sun, wind, and the people who use a space in mind.</p>
+      </div>
+      <ol class="hero__index" aria-label="Projects">
+        <li><a href="#p-toilet"><span>01</span>Public Toilet</a></li>
+        <li><a href="#p-living"><span>02</span>The Living Unit</a></li>
+        <li><a href="#p-jazz"><span>03</span>After Hours</a></li>
+        <li><a href="#p-step"><span>04</span>Step by Step</a></li>
+      </ol>
+      <div class="hero__scroll mono"><span class="hero__scroll-line"></span>Scroll to walk the maquette table</div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about solid" id="about">
+      <div class="about__grid">
+        <figure class="about__portrait" data-img-reveal>
+          <img src="img/portrait.webp" alt="Portrait of Muhammad Rafly" width="565" height="1004" loading="lazy" />
+          <figcaption class="mono">Portofolio Perancangan</figcaption>
+        </figure>
+        <div class="about__body">
+          <span class="eyebrow">Portfolio overview</span>
+          <p class="about__statement" data-scrub-words>This portfolio collects the academic works I developed across Studio Design 1, 2 and 3, Integrated Design Studio, and Architectural Design Studio 1 and 2: sketches, land art, nirmana, structures, a booth, a pavilion, a public toilet, a living unit, a creative hub and vertical housing.</p>
+          <p class="about__sub" data-reveal>Four semesters at the Department of Architecture, Faculty of Civil Engineering and Planning, Universitas Islam Indonesia. It is a record of my process and growth, and a way to keep pushing my design skills before the next challenge.</p>
+          <ul class="stats" data-reveal>
+            <li><strong data-count="4">0</strong><span>Semesters</span></li>
+            <li><strong data-count="6">0</strong><span>Design studios</span></li>
+            <li><strong data-count="14">0</strong><span>Works</span></li>
+            <li><strong data-count="2005" data-plain>2005</strong><span>Born in Cilegon</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee solid" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Selected works <i>—</i> Studio Design <i>✺</i> Integrated Design Studio <i>✺</i> Architectural Design Studio 1 <i>✺</i> Architectural Design Studio 2 <i>✺</i>&nbsp;</span>
+        <span>Selected works <i>—</i> Studio Design <i>✺</i> Integrated Design Studio <i>✺</i> Architectural Design Studio 1 <i>✺</i> Architectural Design Studio 2 <i>✺</i>&nbsp;</span>
+      </div>
+    </div>
+
+    <!-- WORKS -->
+    <div id="works" class="works">
+      <section class="project" id="p-toilet" data-project="0" style="--accent:#7a4b2e">
+        <div class="project__sticky">
+          <header class="project__head">
+            <span class="eyebrow"><b>01</b> / 04 — Studio Design</span>
+            <h2 class="project__title" data-split>Public <em>Toilet</em></h2>
+            <div class="tags"><span>Public facility</span><span>Tourism site</span><span>Inclusive</span></div>
+          </header>
+          <div class="project__panels">
+            <article class="panel is-active">
+              <h3 class="panel__label mono">The brief</h3>
+              <p>A public toilet for visitors at a tourist site, used by children, adults, people with disabilities and travellers. The design responds to sun, wind and noise, and sizes every fixture and the space between them for comfort.</p>
+            </article>
+            <article class="panel">
+              <h3 class="panel__label mono">Materials</h3>
+              <dl class="facts">
+                <div><dt>Roof</dt><dd>Concrete, undulating</dd></div>
+                <div><dt>Facade</dt><dd>5×5 timber battens</dd></div>
+                <div><dt>Cladding</dt><dd>Wood-powder panels</dd></div>
+                <div><dt>Study</dt><dd>Human spatial behaviour: children &amp; difable users</dd></div>
+              </dl>
+            </article>
+            <article class="panel panel--image">
+              <h3 class="panel__label mono">Render</h3>
+              <button class="panel__img" data-lightbox="img/toilet.webp" data-cursor="View"><img src="img/toilet.webp" alt="Public toilet render" loading="lazy" /></button>
+            </article>
+          </div>
+          <footer class="project__foot">
+            <button class="btn btn--explore" data-explore="0" data-magnetic>Explore in 3D <span>↻</span></button>
+            <div class="project__progress"><span></span></div>
+          </footer>
+        </div>
+      </section>
+
+      <section class="project" id="p-living" data-project="1" style="--accent:#3d2c24">
+        <div class="project__sticky">
+          <header class="project__head">
+            <span class="eyebrow"><b>02</b> / 04 — Integrated Design Studio</span>
+            <h2 class="project__title" data-split>The Living <em>Unit</em></h2>
+            <div class="tags"><span>Bumi Basamo</span><span>Modern tropical</span><span>Client house</span></div>
+          </header>
+          <div class="project__panels">
+            <article class="panel is-active">
+              <h3 class="panel__label mono">The client</h3>
+              <p>A family of four from Padang, West Sumatra. The husband is a contractor who meets clients at home, the wife is a make-up artist, and the house has to hold both of their working lives plus their hobbies: reading and the gym.</p>
+            </article>
+            <article class="panel">
+              <h3 class="panel__label mono">Concept</h3>
+              <p>The mass splits into three zones so guests, family and service never collide. The modern tropical concept brings in natural ventilation through timber and precast concrete.</p>
+              <dl class="facts facts--grid">
+                <div><dt>Master bedroom</dt><dd>40 m² · 2 pax</dd></div>
+                <div><dt>Kids room</dt><dd>20.5 m²</dd></div>
+                <div><dt>Make-up studio</dt><dd>13.5 m² · 6 pax</dd></div>
+                <div><dt>Meeting room</dt><dd>10 m² · 6 pax</dd></div>
+              </dl>
+            </article>
+            <article class="panel">
+              <h3 class="panel__label mono">Cost plan</h3>
+              <p class="bignum"><small>Rp</small>2.054<span>.119.380</span></p>
+              <p class="muted">Total incl. 11% VAT, priced line by line from preparation and structure to finishes and landscape.</p>
+              <button class="link" data-lightbox="img/board-living-cost.webp" data-cursor="View">Open the cost sheet ↗</button>
+            </article>
+          </div>
+          <footer class="project__foot">
+            <button class="btn btn--explore" data-explore="1" data-magnetic>Explore in 3D <span>↻</span></button>
+            <div class="project__progress"><span></span></div>
+          </footer>
+        </div>
+      </section>
+
+      <section class="project" id="p-jazz" data-project="2" style="--accent:#9a3c1a">
+        <div class="project__sticky">
+          <header class="project__head">
+            <span class="eyebrow"><b>03</b> / 04 — Architectural Design Studio 1</span>
+            <h2 class="project__title" data-split>After <em>Hours</em></h2>
+            <div class="tags"><span>Creative hub</span><span>Jazz center</span><span>Yogyakarta</span></div>
+          </header>
+          <div class="project__panels">
+            <article class="panel is-active">
+              <h3 class="panel__label mono">Abstract</h3>
+              <p>A space for collective expression for Yogyakarta's music community. Jazz grew out of improvisation, dialogue and spontaneity, and here it becomes architecture: fluid, open, connected spaces that bring performers and the audience close together.</p>
+            </article>
+            <article class="panel">
+              <h3 class="panel__label mono">Music as a path</h3>
+              <ol class="path">
+                <li>Entrance</li><li>Music history</li><li>Music gallery</li><li>Café jazz</li>
+              </ol>
+              <dl class="facts">
+                <div><dt>Site</dt><dd>Jl. Brigjen Katamso, Mergangsan · 2,900 m²</dd></div>
+                <div><dt>Client</dt><dd>Bapak Aryo (owner) · Sleman musicians (operator)</dd></div>
+              </dl>
+            </article>
+            <article class="panel">
+              <h3 class="panel__label mono">Detail</h3>
+              <p>A secondary skin of bengkirai timber on a steel frame plays rhythm and repetition with light. The bent GLULAM roof takes the shape of a guitar pick.</p>
+              <button class="panel__img" data-lightbox="img/jazz-night.webp" data-cursor="View"><img src="img/jazz-night.webp" alt="After Hours at night" loading="lazy" /></button>
+            </article>
+          </div>
+          <footer class="project__foot">
+            <button class="btn btn--explore" data-explore="2" data-magnetic>Explore in 3D <span>↻</span></button>
+            <div class="project__progress"><span></span></div>
+          </footer>
+        </div>
+      </section>
+
+      <section class="project" id="p-step" data-project="3" style="--accent:#8d4a55">
+        <div class="project__sticky">
+          <header class="project__head">
+            <span class="eyebrow"><b>04</b> / 04 — Architectural Design Studio 2</span>
+            <h2 class="project__title" data-split>Step by <em>Step</em></h2>
+            <div class="tags"><span>Vertical housing</span><span>Nairobi, Kenya</span><span>Parametric</span></div>
+          </header>
+          <div class="project__panels">
+            <article class="panel is-active">
+              <h3 class="panel__label mono">Context</h3>
+              <p>Embakasi, Nairobi, on the banks of the Ngong River. Rapid urbanisation is eating up farmland, while around 70% of Kenyans still depend on agriculture. Food security is the issue this design takes on.</p>
+            </article>
+            <article class="panel">
+              <h3 class="panel__label mono">Food-resilient housing</h3>
+              <p>Homes, urban farming, communal gardens and a rooftop farm form one ecosystem. The twisting tower was generated in Grasshopper, with a refuge floor at level 7.</p>
+              <dl class="facts facts--grid">
+                <div><dt>Type A</dt><dd>6 × 6 m</dd></div>
+                <div><dt>Type B</dt><dd>6 × 6 m + balcony</dd></div>
+                <div><dt>Type C</dt><dd>12 × 7 m</dd></div>
+                <div><dt>Type D</dt><dd>24 × 6 m</dd></div>
+              </dl>
+            </article>
+            <article class="panel panel--image">
+              <h3 class="panel__label mono">Living cell</h3>
+              <button class="panel__img panel__img--light" data-lightbox="img/module-b.webp" data-cursor="View"><img src="img/module-b.webp" alt="Interior planned living unit, axonometric" loading="lazy" /></button>
+            </article>
+          </div>
+          <footer class="project__foot">
+            <button class="btn btn--explore" data-explore="3" data-magnetic>Explore in 3D <span>↻</span></button>
+            <div class="project__progress"><span></span></div>
+          </footer>
+        </div>
+      </section>
+    </div>
+
+    <!-- GALLERY (horizontal) -->
+    <section class="gallery solid" id="gallery">
+      <div class="gallery__sticky">
+        <div class="gallery__head">
+          <span class="eyebrow">Renders &amp; presentation boards</span>
+          <h2 class="section-title" data-split>The <em>archive</em></h2>
+        </div>
+        <div class="gallery__track">
+          <figure class="g g--wide" data-lightbox="img/jazz-hero.webp" data-cursor="View"><div class="g__img"><img src="img/jazz-hero.webp" alt="After Hours exterior" loading="lazy" /></div><figcaption><span>03</span>After Hours — exterior</figcaption></figure>
+          <figure class="g g--tall" data-lightbox="img/board-jazz-1.webp" data-cursor="View"><div class="g__img"><img src="img/board-jazz-1.webp" alt="After Hours presentation board 1" loading="lazy" /></div><figcaption><span>03</span>APREB board I</figcaption></figure>
+          <figure class="g g--tall" data-lightbox="img/board-jazz-2.webp" data-cursor="View"><div class="g__img"><img src="img/board-jazz-2.webp" alt="After Hours presentation board 2" loading="lazy" /></div><figcaption><span>03</span>APREB board II</figcaption></figure>
+          <figure class="g" data-lightbox="img/jazz-situation.webp" data-cursor="View"><div class="g__img"><img src="img/jazz-situation.webp" alt="After Hours situation" loading="lazy" /></div><figcaption><span>03</span>Situation</figcaption></figure>
+          <figure class="g g--wide" data-lightbox="img/living-final.webp" data-cursor="View"><div class="g__img"><img src="img/living-final.webp" alt="The Living Unit final render" loading="lazy" /></div><figcaption><span>02</span>The Living Unit — final</figcaption></figure>
+          <figure class="g g--wide" data-lightbox="img/living-night.webp" data-cursor="View"><div class="g__img"><img src="img/living-night.webp" alt="The Living Unit night render" loading="lazy" /></div><figcaption><span>02</span>Mid-term, at night</figcaption></figure>
+          <figure class="g" data-lightbox="img/toilet.webp" data-cursor="View"><div class="g__img"><img src="img/toilet.webp" alt="Public toilet" loading="lazy" /></div><figcaption><span>01</span>Public Toilet</figcaption></figure>
+          <figure class="g g--wide" data-lightbox="img/step-cover.webp" data-cursor="View"><div class="g__img"><img src="img/step-cover.webp" alt="Step by Step tower" loading="lazy" /></div><figcaption><span>04</span>Step by Step</figcaption></figure>
+          <figure class="g g--tall" data-lightbox="img/board-step-1.webp" data-cursor="View"><div class="g__img"><img src="img/board-step-1.webp" alt="Step by Step board 1" loading="lazy" /></div><figcaption><span>04</span>ADS 2-C board I</figcaption></figure>
+          <figure class="g g--tall" data-lightbox="img/board-step-2.webp" data-cursor="View"><div class="g__img"><img src="img/board-step-2.webp" alt="Step by Step board 2" loading="lazy" /></div><figcaption><span>04</span>ADS 2-C board II</figcaption></figure>
+          <figure class="g" data-lightbox="img/module-a.webp" data-cursor="View"><div class="g__img g__img--light"><img src="img/module-a.webp" alt="Module 1 living unit" loading="lazy" /></div><figcaption><span>04</span>Module 1, Type 48</figcaption></figure>
+        </div>
+        <div class="gallery__bar"><span></span></div>
+      </div>
+    </section>
+
+    <!-- CREDENTIALS -->
+    <section class="cred solid" id="cred">
+      <div class="cred__col">
+        <span class="eyebrow">Education</span>
+        <ul class="timeline">
+          <li data-reveal><time class="mono">2023 — now</time><div><h3>S1 Arsitektur</h3><p>Universitas Islam Indonesia</p></div></li>
+          <li data-reveal><time class="mono">2020 — 2023</time><div><h3>SMA Negeri 1 Cilegon</h3><p>Senior high school</p></div></li>
+          <li data-reveal><time class="mono">2017 — 2020</time><div><h3>SMP YPWKS Cilegon</h3><p>Junior high school</p></div></li>
+          <li data-reveal><time class="mono">2011 — 2017</time><div><h3>SD YPWKS Cilegon</h3><p>Elementary school</p></div></li>
+        </ul>
+      </div>
+      <div class="cred__col">
+        <span class="eyebrow">Software</span>
+        <ul class="software">
+          <li data-hover-img="img/living-final.webp"><span>Archicad</span><i>BIM &amp; drawings</i></li>
+          <li data-hover-img="img/jazz-day.webp"><span>Twinmotion</span><i>Rendering</i></li>
+          <li data-hover-img="img/step-board-top.webp"><span>Photoshop</span><i>Boards &amp; post</i></li>
+          <li data-hover-img="img/jazz-night.webp"><span>Premiere Pro</span><i>Walkthroughs</i></li>
+          <li data-hover-img="img/living-hero.webp"><span>Canva</span><i>Layout</i></li>
+        </ul>
+      </div>
+      <img class="hover-img" alt="" aria-hidden="true" />
+    </section>
+
+    <!-- CONTACT (canvas shows again behind) -->
+    <section class="contact" id="contact">
+      <span class="eyebrow">Contact</span>
+      <h2 class="contact__title" data-split>Let's build <em>something</em> together.</h2>
+      <div class="contact__links">
+        <a class="btn btn--big" href="mailto:raflytil90@gmail.com" data-magnetic>raflytil90@gmail.com <span>↗</span></a>
+        <a class="btn btn--ghost" href="https://wa.me/6281928880695" target="_blank" rel="noopener" data-magnetic>WhatsApp +62 819 2888 0695 <span>↗</span></a>
+      </div>
+      <footer class="footer mono">
+        <span>© <span class="js-year">2026</span> Muhammad Rafly</span>
+        <span>Jl. Pandawa, Cilegon — Indonesia</span>
+        <a href="#top" data-link>Back to top ↑</a>
+      </footer>
+    </section>
+  </main>
+
+  <!-- explore overlay -->
+  <div class="explore" aria-hidden="true">
+    <div class="explore__info"><span class="mono js-explore-name"></span><span class="mono explore__hint">Drag to orbit · Scroll / pinch to zoom</span></div>
+    <button class="btn btn--close js-explore-close" data-magnetic>Close ✕</button>
+  </div>
+
+  <!-- lightbox -->
+  <div class="lightbox" aria-hidden="true">
+    <button class="lightbox__close" aria-label="Close">✕</button>
+    <div class="lightbox__scroll"><img alt="" /></div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
