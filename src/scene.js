@@ -1,5 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js';
 import { publicToilet, livingUnit, afterHours, stepByStep, trees, MAT } from './models.js';
 
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
@@ -87,7 +89,8 @@ export function createScene(canvas, { hero, projects, outro }) {
     { build: publicToilet, pos: [-30, 0, 8], scale: 0.85, plinth: [11, 10] },
     { build: livingUnit, pos: [-11, 0, -5], scale: 0.62, plinth: [12.5, 10.5] },
     { build: afterHours, pos: [10, 0, 7], scale: 0.32, plinth: [18, 9.5] },
-    { build: stepByStep, pos: [31, 0, -6], scale: 0.3, plinth: [17, 15] },
+    // procedural tower is a placeholder; the real SketchUp model replaces it once loaded
+    { build: stepByStep, pos: [34, 0, -6], scale: 0.3, plinth: [30, 17], gltf: 'models/step-by-step.glb', gltfScale: 0.21 },
   ];
   const models = defs.map((d) => {
     const holder = new THREE.Group();
@@ -104,6 +107,38 @@ export function createScene(canvas, { hero, projects, outro }) {
     holder.add(m);
     scene.add(holder);
     return { holder, model: m };
+  });
+
+  // swap placeholders for the architect's real models (SketchUp → glTF, meshopt-compressed)
+  const loader = new GLTFLoader();
+  loader.setMeshoptDecoder(MeshoptDecoder);
+  defs.forEach((d, i) => {
+    if (!d.gltf) return;
+    loader.load(new URL(d.gltf, document.baseURI).href, (gltf) => {
+      const real = gltf.scene;
+      real.scale.setScalar(d.gltfScale);
+      real.position.y = 0.6;
+      real.traverse((o) => {
+        if (!o.isMesh) return;
+        o.castShadow = o.receiveShadow = true;
+        const mats = Array.isArray(o.material) ? o.material : [o.material];
+        mats.forEach((m) => {
+          m.roughness = 0.85;
+          m.metalness = 0;
+          if (/glass/i.test(m.name)) {
+            m.color.set(0x5d6f72);
+            m.transparent = true;
+            m.opacity = 0.5;
+            m.depthWrite = false;
+          }
+        });
+      });
+      const { holder, model } = models[i];
+      holder.remove(model);
+      model.traverse((o) => { if (o.isMesh) o.geometry.dispose(); });
+      holder.add(real);
+      models[i].model = real;
+    }, undefined, (err) => console.warn('Model failed to load, keeping placeholder', err));
   });
 
   // scattered trees on the table between the plinths
@@ -123,7 +158,7 @@ export function createScene(canvas, { hero, projects, outro }) {
     { look: v(0, 2.4, 0).add(centers[0]), r: 18, h: [6, 3.2], a: [0.65, -0.85] },
     { look: v(0, 3, 0).add(centers[1]), r: 25, h: [10, 4.5], a: [0.85, -0.6] },
     { look: v(0, 3, 0).add(centers[2]), r: 26, h: [10, 4], a: [-0.45, 0.75] },
-    { look: v(0, 8.5, 0).add(centers[3]), r: 44, h: [5, 20], a: [1.05, -0.1] },
+    { look: v(0, 7.5, 0).add(centers[3]), r: 54, h: [7, 22], a: [0.55, -0.45], mobileLift: 6 },
   ];
 
   const pose = (s, t) => {
@@ -132,9 +167,11 @@ export function createScene(canvas, { hero, projects, outro }) {
     const a = THREE.MathUtils.lerp(s.a[0], s.a[1], t);
     const rr = s.r * m * (1 - 0.12 * Math.sin(t * Math.PI));
     const h = THREE.MathUtils.lerp(s.h[0], s.h[1], t) * (isMobile() ? 1.15 : 1);
+    const look = s.look.clone();
+    if (isMobile() && s.mobileLift) look.y += s.mobileLift; // pushes tall models below the title
     return {
-      pos: s.look.clone().add(v(Math.sin(a) * rr, h, Math.cos(a) * rr)),
-      look: s.look.clone(),
+      pos: look.clone().add(v(Math.sin(a) * rr, h, Math.cos(a) * rr)),
+      look,
     };
   };
   const heroPose = (time) => {
