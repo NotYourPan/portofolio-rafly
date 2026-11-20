@@ -87,8 +87,8 @@ export function createScene(canvas, { hero, projects, outro }) {
   /* ---------- maquettes ---------- */
   const defs = [
     { build: publicToilet, pos: [-30, 0, 8], scale: 0.85, plinth: [11, 10] },
-    { build: livingUnit, pos: [-11, 0, -5], scale: 0.62, plinth: [12.5, 10.5] },
-    { build: afterHours, pos: [10, 0, 7], scale: 0.32, plinth: [18, 9.5] },
+    { build: livingUnit, pos: [-11, 0, -5], scale: 0.62, plinth: [11.5, 13], gltf: 'models/living-unit.glb', gltfScale: 0.42 },
+    { build: afterHours, pos: [8, 0, 9], scale: 0.32, plinth: [21, 17.5], gltf: 'models/after-hours.glb', gltfScale: 0.26 },
     // procedural tower is a placeholder; the real SketchUp model replaces it once loaded
     { build: stepByStep, pos: [34, 0, -6], scale: 0.3, plinth: [30, 17], gltf: 'models/step-by-step.glb', gltfScale: 0.21 },
   ];
@@ -125,11 +125,14 @@ export function createScene(canvas, { hero, projects, outro }) {
         mats.forEach((m) => {
           m.roughness = 0.85;
           m.metalness = 0;
-          if (/glass/i.test(m.name)) {
-            m.color.set(0x5d6f72);
+          m.side = THREE.DoubleSide; // SketchUp faces are often flipped inward
+          m.shadowSide = THREE.FrontSide;
+          if (m.transparent || /glass/i.test(m.name)) {
+            // glass (only the real see-through SketchUp materials stay blended after export)
             m.transparent = true;
-            m.opacity = 0.5;
+            m.opacity = Math.min(m.opacity, 0.55);
             m.depthWrite = false;
+            m.color.multiplyScalar(0.55);
           }
         });
       });
@@ -157,7 +160,7 @@ export function createScene(canvas, { hero, projects, outro }) {
   const stations = [
     { look: v(0, 2.4, 0).add(centers[0]), r: 18, h: [6, 3.2], a: [0.65, -0.85] },
     { look: v(0, 3, 0).add(centers[1]), r: 25, h: [10, 4.5], a: [0.85, -0.6] },
-    { look: v(0, 3, 0).add(centers[2]), r: 26, h: [10, 4], a: [-0.45, 0.75] },
+    { look: v(0, 2.2, 0).add(centers[2]), r: 33, h: [13, 5], a: [-0.45, 0.75] },
     { look: v(0, 7.5, 0).add(centers[3]), r: 54, h: [7, 22], a: [0.55, -0.45], mobileLift: 6 },
   ];
 
