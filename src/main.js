@@ -4,6 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { createScene } from './scene.js';
 
 gsap.registerPlugin(ScrollTrigger);
+ScrollTrigger.config({ ignoreMobileResize: true });
 
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -205,12 +206,22 @@ const gallery = $('.gallery');
 const track = $('.gallery__track');
 const gBar = $('.gallery__bar span');
 const gImgs = $$('.g:not(.g--tall) .g__img img', track);
+const gSticky = $('.gallery__sticky');
 function sizeGallery() {
   const dist = Math.max(0, track.scrollWidth - window.innerWidth);
-  gallery.style.height = `${dist + window.innerHeight}px`;
+  // use the sticky panel's real height (100svh) so the end of the track lines up on phones
+  gallery.style.height = `${dist + gSticky.offsetHeight}px`;
   return dist;
 }
 let gDist = sizeGallery();
+
+// Lazy images inside a horizontally translated track never count as "near the viewport"
+// on mobile browsers, so they stayed blank. Load them all once the gallery gets close.
+const loadGallery = () => $$('img', track).forEach((img) => {
+  img.loading = 'eager';
+  if (!img.complete) img.decode?.().catch(() => {});
+});
+ScrollTrigger.create({ trigger: gallery, start: 'top 300%', once: true, onEnter: loadGallery });
 ScrollTrigger.create({
   trigger: gallery,
   start: 'top top',
@@ -417,7 +428,11 @@ intro();
 /*  Resize                                                             */
 /* ------------------------------------------------------------------ */
 let rt;
+let lastW = window.innerWidth;
 window.addEventListener('resize', () => {
+  // phones fire resize when the address bar shows/hides; only re-measure on real width changes
+  if (window.innerWidth === lastW) return;
+  lastW = window.innerWidth;
   clearTimeout(rt);
   rt = setTimeout(() => {
     gDist = sizeGallery();
