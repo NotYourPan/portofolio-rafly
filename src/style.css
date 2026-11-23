@@ -287,6 +287,7 @@ body.menu-open .menu nav a:nth-child(4) { transition-delay: 0.18s; }
 .g--tall:hover .g__img img { transform: scale(1.02); }
 .g figcaption { display: flex; gap: 0.7rem; padding-top: 0.6rem; font-size: 0.85rem; }
 .g figcaption span { font-family: var(--mono); font-size: 0.7rem; color: var(--accent); padding-top: 0.15rem; }
+.gallery__swipe { display: none; }
 .gallery__bar { margin: 0 var(--gutter); height: 1px; background: var(--line); position: relative; }
 .gallery__bar span { position: absolute; inset: 0; background: var(--ink); transform-origin: left; transform: scaleX(0); }
 
@@ -384,7 +385,23 @@ main { transition: opacity 0.6s var(--ease); }
   .project__foot { grid-row: 4; }
   .btn--explore { padding: 0.8rem 1.2rem; font-size: 0.85rem; }
 
-  .g { height: 46vh; }
+  /* phones: native swipe carousel instead of the pinned horizontal scroll
+     (huge translated layers + sticky made iOS Safari render the section blank) */
+  .gallery { height: auto !important; padding: calc(var(--nav-h) + 4vh) 0 8vh; }
+  .gallery__sticky { position: static; height: auto; overflow: visible; padding: 0; gap: 2rem; }
+  .gallery__swipe { display: inline-block; color: var(--ink-2); }
+  .gallery__track {
+    width: auto; transform: none !important; will-change: auto;
+    overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; overscroll-behavior-x: contain; scroll-padding-left: var(--gutter);
+  }
+  .gallery__track::-webkit-scrollbar { display: none; }
+  .g, .g--wide, .g:not(.g--wide):not(.g--tall), .g--tall { height: auto; aspect-ratio: auto; width: 82vw; scroll-snap-align: start; }
+  .g--tall { width: 58vw; }
+  .g__img { height: auto; aspect-ratio: 1.35; }
+  .g--tall .g__img { aspect-ratio: 0.77; }
+  .g__img img { transform: none !important; }
+  .gallery__bar { display: none; }
   .cred { grid-template-columns: 1fr; }
   .timeline li { grid-template-columns: 1fr; gap: 0.2rem; }
   .timeline time { padding-top: 0; }

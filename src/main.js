@@ -207,7 +207,12 @@ const track = $('.gallery__track');
 const gBar = $('.gallery__bar span');
 const gImgs = $$('.g:not(.g--tall) .g__img img', track);
 const gSticky = $('.gallery__sticky');
+const mobileGallery = window.matchMedia('(max-width: 819px), (max-width: 1100px) and (orientation: portrait)');
 function sizeGallery() {
+  if (mobileGallery.matches) { // phones use a native swipe carousel (see CSS)
+    gallery.style.height = '';
+    return 0;
+  }
   const dist = Math.max(0, track.scrollWidth - window.innerWidth);
   // use the sticky panel's real height (100svh) so the end of the track lines up on phones
   gallery.style.height = `${dist + gSticky.offsetHeight}px`;
@@ -227,6 +232,7 @@ ScrollTrigger.create({
   start: 'top top',
   end: 'bottom bottom',
   onUpdate: (self) => {
+    if (mobileGallery.matches) return;
     track.style.transform = `translate3d(${-self.progress * gDist}px,0,0)`;
     gBar.style.transform = `scaleX(${self.progress})`;
     const vw = window.innerWidth;
